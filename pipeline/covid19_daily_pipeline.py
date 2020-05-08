@@ -51,7 +51,7 @@ def run():
 
     with beam.Pipeline(options=options) as p:
 
-        (p
+        hello = (p
          | 'Read from a File' >> beam.io.ReadFromText(input_file)
          | 'String To BigQuery Row' >> beam.Map(lambda s: csv_parser.parse_method(s))
          | 'Write to BigQuery' >> beam.io.Write(
