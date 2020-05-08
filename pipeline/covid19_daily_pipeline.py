@@ -66,3 +66,6 @@ def run():
                  create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
                  # Deletes all data in the BigQuery table before writing.
                  write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND)))
+
+if __name__ == "__main__":
+    run()
