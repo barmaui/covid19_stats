@@ -41,6 +41,7 @@ class CSVParser:
         # Strip out carriage return, newline and quote characters.
         values = string_input.replace('\n', '').split(',')
         row = dict(zip(('country', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths', 'active_cases'), values))
+        print(row)
         return row
 
 
