@@ -15,7 +15,7 @@ options.view_as(StandardOptions).runner = "DataFlowRunner"
 
 yesterday = datetime.today() - timedelta(days=1)
 date_y = yesterday.strftime('%Y-%m-%d')
-input_file = f'gs://covid19/daily_stats_{date_y}'
+input_file = f'gs://covid19/daily_stats_{date_y}.csv'
 
 
 class CSVParser:
