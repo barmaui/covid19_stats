@@ -49,12 +49,11 @@ def run():
 
     csv_parser = CSVParser()
 
-    with beam.Pipeline(options=options) as p:
-
-        hello = (p
-         | 'Read from a File' >> beam.io.ReadFromText(input_file)
-         | 'String To BigQuery Row' >> beam.Map(lambda s: csv_parser.parse_method(s))
-         | 'Write to BigQuery' >> beam.io.Write(
+    p = beam.Pipeline(options=options)
+    (p
+    | 'Read from a File' >> beam.io.ReadFromText(input_file)
+    | 'String To BigQuery Row' >> beam.Map(lambda s: csv_parser.parse_method(s))
+    | 'Write to BigQuery' >> beam.io.Write(
              beam.io.WriteToBigQuery(
                  # The table name is a required argument for the BigQuery sink.
                  # In this case we use the value passed in from the command line.
@@ -67,6 +66,9 @@ def run():
                  create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
                  # Deletes all data in the BigQuery table before writing.
                  write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND)))
+
+    result = p.run()
+    result.wait_until_finish()
 
 if __name__ == "__main__":
     run()
