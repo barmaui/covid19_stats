@@ -6,7 +6,7 @@ from apache_beam.options.pipeline_options import StandardOptions
 from datetime import datetime, timedelta
 options = PipelineOptions()
 google_cloud_options = options.view_as(GoogleCloudOptions)
-google_cloud_options.project = "covid19stats"
+google_cloud_options.project = "covid19stats-273220"
 google_cloud_options.job_name = "daily-update-pipeline"
 google_cloud_options.staging_location = "gs://covid19stats/staging"
 google_cloud_options.temp_location = "gs://covid19stats/temp"
@@ -55,11 +55,12 @@ def run():
          | 'Read from a File' >> beam.io.ReadFromText(input_file)
          | 'String To BigQuery Row' >> beam.Map(lambda s: csv_parser.parse_method(s))
          | 'Write to BigQuery' >> beam.io.Write(
-             beam.io.BigQuerySink(
+             beam.io.WriteToBigQuery(
                  # The table name is a required argument for the BigQuery sink.
                  # In this case we use the value passed in from the command line.
                  'daily_stats',
                  dataset='covid19_stats',
+                 project='covid19stats',
                  schema='country:STRING,date:DATE,total_cases:INT,new_cases:INT,'
                  'total_deaths:INT,new_deaths:INT,active_cases:INT',
                  # Creates the table in BigQuery if it does not yet exist.
