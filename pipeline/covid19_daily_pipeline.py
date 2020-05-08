@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 options = PipelineOptions()
 google_cloud_options = options.view_as(GoogleCloudOptions)
 google_cloud_options.project = "covid19stats"
-google_cloud_options.job_name = "daily_update_pipeline"
+google_cloud_options.job_name = "daily-update-pipeline"
 google_cloud_options.staging_location = "gs://covid19stats/staging"
 google_cloud_options.temp_location = "gs://covid19stats/temp"
 #options.view_as(StandardOptions).runner = "DirectRunner"  # use this for debugging
