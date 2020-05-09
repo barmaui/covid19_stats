@@ -8,6 +8,8 @@ options = PipelineOptions()
 google_cloud_options = options.view_as(GoogleCloudOptions)
 google_cloud_options.project = "covid19stats-273220"
 google_cloud_options.job_name = "daily-update-pipeline"
+google_cloud_options.staging_location = "gs://covid19_stats/staging"
+google_cloud_options.temp_location = "gs://covid19_stats/staging"
 #options.view_as(StandardOptions).runner = "DirectRunner"  # use this for debugging
 options.view_as(StandardOptions).runner = "DataFlowRunner"
 
