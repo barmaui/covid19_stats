@@ -60,9 +60,9 @@ def run():
                  # In this case we use the value passed in from the command line.
                  'daily_stats',
                  dataset='covid19_stats',
-                 project='covid19stats',
-                 schema='country:STRING,date:DATE,total_cases:INT,new_cases:INT,'
-                 'total_deaths:INT,new_deaths:INT,active_cases:INT',
+                 project='covid19stats-273220',
+                 schema='country:STRING,date:DATE,total_cases:INT64,new_cases:INT64,'
+                 'total_deaths:INT64,new_deaths:INT64,active_cases:INT64',
                  # Creates the table in BigQuery if it does not yet exist.
                  create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
                  # Deletes all data in the BigQuery table before writing.
