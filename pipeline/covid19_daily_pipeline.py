@@ -8,14 +8,12 @@ options = PipelineOptions()
 google_cloud_options = options.view_as(GoogleCloudOptions)
 google_cloud_options.project = "covid19stats-273220"
 google_cloud_options.job_name = "daily-update-pipeline"
-google_cloud_options.staging_location = "gs://covid19stats/staging"
-google_cloud_options.temp_location = "gs://covid19stats/temp"
 #options.view_as(StandardOptions).runner = "DirectRunner"  # use this for debugging
 options.view_as(StandardOptions).runner = "DataFlowRunner"
 
 yesterday = datetime.today() - timedelta(days=1)
 date_y = yesterday.strftime('%Y-%m-%d')
-input_file = f'gs://covid19stats/daily_stats_{date_y}.csv'
+input_file = f'gs://covid19_stats/daily_stats_{date_y}.csv'
 
 
 class CSVParser:
@@ -70,6 +68,7 @@ def run():
 
     result = p.run()
     result.wait_until_finish()
+
 
 if __name__ == "__main__":
     run()
