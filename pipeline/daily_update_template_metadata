@@ -1,0 +1,11 @@
+{
+  "description": "Test pipeline for covid19",
+  "name": "covid19",
+  "parameters": [
+    {
+      "name": "region",
+      "helpText": "us-central1",
+      "label": "Region to launch job"
+    }
+  ]
+}
