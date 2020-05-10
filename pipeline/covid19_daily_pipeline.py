@@ -10,7 +10,7 @@ class UserOptions(PipelineOptions):
     def _add_argparse_args(cls, parser):
         parser.add_value_provider_argument('--input_date', dest='input_date', type='string', default='2020-05-08')
 
-options = UserOptions()
+options = PipelineOptions()
 user_options = options.view_as(UserOptions)
 logging.info(options)
 google_cloud_options = options.view_as(GoogleCloudOptions)
@@ -52,7 +52,7 @@ def run(argv=None):
     """The main function which creates the pipeline and runs it."""
     csv_parser = CSVParser()
 
-    input_file = f'gs://covid19_stats/daily_stats_{user_options}.csv'
+    input_file = f'gs://covid19_stats/daily_stats_{user_options.input_date}.csv'
 
     p = beam.Pipeline(options=options)
     (p
