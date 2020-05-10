@@ -48,7 +48,7 @@ class CSVParser:
         print(row)
         return row
 
-def run(argv=None):
+def run():
     """The main function which creates the pipeline and runs it."""
     csv_parser = CSVParser()
 
