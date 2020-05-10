@@ -6,6 +6,11 @@
       "name": "region",
       "helpText": "us-central1",
       "label": "Region to launch job"
+    },
+    {
+      "name": "input_date",
+      "helpText": "date of the input file",
+      "label": "Date of the input"
     }
   ]
 }
