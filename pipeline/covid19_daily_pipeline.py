@@ -49,7 +49,7 @@ def run(argv=None):
     csv_parser = CSVParser()
     parser.add_argument('--input_date',
                         dest='input_date',
-                        required=True,
+                        required=False,
                         help='which big query files to get')
 
     known_args, _ = parser.parse_known_args(argv)
