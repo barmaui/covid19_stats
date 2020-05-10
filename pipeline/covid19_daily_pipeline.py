@@ -8,7 +8,7 @@ import logging
 class UserOptions(PipelineOptions):
     @classmethod
     def _add_argparse_args(cls, parser):
-        parser.add_value_provider_argument('--input_date', type='string', default='2020-05-08')
+        parser.add_value_provider_argument('--input_date', name='input_date', type='string', default='2020-05-08')
 
 options = UserOptions()
 logging.info(options)
