@@ -4,6 +4,8 @@ from apache_beam.options.pipeline_options import PipelineOptions
 from apache_beam.options.pipeline_options import GoogleCloudOptions
 from apache_beam.options.pipeline_options import StandardOptions
 from datetime import datetime, timedelta
+import argparse
+
 options = PipelineOptions()
 google_cloud_options = options.view_as(GoogleCloudOptions)
 google_cloud_options.project = "covid19stats-273220"
@@ -12,10 +14,6 @@ google_cloud_options.staging_location = "gs://covid19_stats/staging"
 google_cloud_options.temp_location = "gs://covid19_stats/staging"
 #options.view_as(StandardOptions).runner = "DirectRunner"  # use this for debugging
 options.view_as(StandardOptions).runner = "DataFlowRunner"
-
-yesterday = datetime.today() - timedelta(days=1)
-date_y = yesterday.strftime('%Y-%m-%d')
-input_file = f'gs://covid19_stats/daily_stats_{date_y}.csv'
 
 
 class CSVParser:
@@ -45,10 +43,17 @@ class CSVParser:
         return row
 
 
-def run():
+def run(argv=None):
     """The main function which creates the pipeline and runs it."""
-
+    parser = argparse.ArgumentParser()
     csv_parser = CSVParser()
+    parser.add_argument('--input_date',
+                        dest='input_date',
+                        required=True,
+                        help='which big query files to get')
+
+    known_args, _ = parser.parse_known_args(argv)
+    input_file = f'gs://covid19_stats/daily_stats_{known_args.input_date}.csv'
 
     p = beam.Pipeline(options=options)
     (p
