@@ -49,7 +49,7 @@ def run(argv=None):
     """The main function which creates the pipeline and runs it."""
     csv_parser = CSVParser()
 
-    input_file = f'gs://covid19_stats/daily_stats_{google_cloud_options.input_date}.csv'
+    input_file = f'gs://covid19_stats/daily_stats_{options.input_date}.csv'
 
     p = beam.Pipeline(options=options)
     (p
