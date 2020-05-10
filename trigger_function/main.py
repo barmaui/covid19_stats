@@ -3,8 +3,6 @@ def launch_pipeline(data, context):
     from oauth2client.client import GoogleCredentials
     from datetime import datetime, timedelta
     credentials = GoogleCredentials.get_application_default()
-    yesterday = datetime.today() - timedelta(days=1)
-    date_y = yesterday.strftime('%Y-%m-%d')
     service = build('dataflow', 'v1b3', credentials=credentials)
     # Update the below four variables to reflect your requirements
     JOBNAME = "Daily Update COVID19 data"
@@ -15,8 +13,7 @@ def launch_pipeline(data, context):
     BODY = {
         "jobName": "{jobname}".format(jobname=JOBNAME),
         "parameters": {
-            "region": "us-central1",
-            "input_date": f'{date_y}'
+            "region": "us-central1"
         },
         "environment": {
             "tempLocation": "gs://{bucket}/temp".format(bucket=BUCKET),
