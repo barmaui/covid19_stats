@@ -51,7 +51,7 @@ class CSVParser:
 def run():
     """The main function which creates the pipeline and runs it."""
     csv_parser = CSVParser()
-
+    logging.debug(user_options)
     input_file = f'gs://covid19_stats/daily_stats_{user_options.input_date.get()}.csv'
 
     p = beam.Pipeline(options=options)
