@@ -9,7 +9,7 @@ class UserOptions(PipelineOptions):
     def _add_argparse_args(cls, parser):
         parser.add_value_provider_argument('--input_date', type=string, default='2020-05-08')
 
-options = UserOptions(flags=argv)
+options = UserOptions()
 google_cloud_options = options.view_as(GoogleCloudOptions)
 google_cloud_options.project = "covid19stats-273220"
 google_cloud_options.job_name = "daily-update-pipeline"
