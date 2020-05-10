@@ -12,7 +12,8 @@ class UserOptions(PipelineOptions):
 
 options = PipelineOptions()
 user_options = options.view_as(UserOptions)
-logging.info(options)
+logging.warning(options)
+logging.warning(user_options)
 google_cloud_options = options.view_as(GoogleCloudOptions)
 google_cloud_options.project = "covid19stats-273220"
 google_cloud_options.job_name = "daily-update-pipeline"
@@ -77,5 +78,4 @@ def run():
 
 
 if __name__ == "__main__":
-    logging.getLogger().setLevel(logging.INFO)
     run()
