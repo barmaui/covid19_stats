@@ -12,8 +12,7 @@ class UserOptions(PipelineOptions):
 
 options = PipelineOptions()
 user_options = options.view_as(UserOptions)
-logging.warning(options)
-logging.warning(user_options)
+logging.debug(user_options.input_date.get())
 google_cloud_options = options.view_as(GoogleCloudOptions)
 google_cloud_options.project = "covid19stats-273220"
 google_cloud_options.job_name = "daily-update-pipeline"
