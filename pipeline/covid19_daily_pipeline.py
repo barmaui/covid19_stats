@@ -50,6 +50,7 @@ def run(argv=None):
     parser.add_argument('--input_date',
                         dest='input_date',
                         required=False,
+                        default='2020-05-05',
                         help='which big query files to get')
 
     known_args, _ = parser.parse_known_args(argv)
