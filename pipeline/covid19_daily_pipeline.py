@@ -3,10 +3,13 @@ import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions
 from apache_beam.options.pipeline_options import GoogleCloudOptions
 from apache_beam.options.pipeline_options import StandardOptions
-from datetime import datetime, timedelta
-import argparse
 
-options = PipelineOptions()
+class UserOptions(PipelineOptions):
+    @classmethod
+    def _add_argparse_args(cls, parser):
+        parser.add_value_provider_argument('--input_date', type=string, default='2020-05-08')
+
+options = UserOptions(flags=argv)
 google_cloud_options = options.view_as(GoogleCloudOptions)
 google_cloud_options.project = "covid19stats-273220"
 google_cloud_options.job_name = "daily-update-pipeline"
@@ -42,19 +45,11 @@ class CSVParser:
         print(row)
         return row
 
-
 def run(argv=None):
     """The main function which creates the pipeline and runs it."""
-    parser = argparse.ArgumentParser()
     csv_parser = CSVParser()
-    parser.add_argument('--input_date',
-                        dest='input_date',
-                        required=False,
-                        default='2020-05-08',
-                        help='which big query files to get')
 
-    known_args, _ = parser.parse_known_args(argv)
-    input_file = f'gs://covid19_stats/daily_stats_{known_args.input_date}.csv'
+    input_file = f'gs://covid19_stats/daily_stats_{google_cloud_options.input_date}.csv'
 
     p = beam.Pipeline(options=options)
     (p
