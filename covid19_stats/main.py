@@ -14,8 +14,8 @@ def retrieve_daily_data(request):
     yesterday = datetime.today() - timedelta(days=1)
     date_y = yesterday.strftime('%Y-%m-%d')
     client = storage.Client()
-    bucket = client.get_bucket('covid19stats')
-    blob = bucket.blob(f'daily_stats.csv')
+    bucket = client.get_bucket('covid19_stats')
+    blob = bucket.blob(f'daily_stats_{date_y}.csv')
     URL = f'https://www.worldometers.info/coronavirus/#countries'
     page = requests.get(URL)
     soup = BeautifulSoup(page.content, 'html.parser')
