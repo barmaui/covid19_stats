@@ -3,15 +3,8 @@ import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions
 from apache_beam.options.pipeline_options import GoogleCloudOptions
 from apache_beam.options.pipeline_options import StandardOptions
-import logging
-
-class UserOptions(PipelineOptions):
-    @classmethod
-    def _add_argparse_args(cls, parser):
-        parser.add_value_provider_argument('--input_date', dest='input_date', type='string', default='2020-05-08')
 
 options = PipelineOptions()
-user_options = options.view_as(UserOptions)
 logging.warning(user_options.input_date)
 google_cloud_options = options.view_as(GoogleCloudOptions)
 google_cloud_options.project = "covid19stats-273220"
@@ -45,14 +38,12 @@ class CSVParser:
         # Strip out carriage return, newline and quote characters.
         values = string_input.replace('\n', '').split(',')
         row = dict(zip(('country', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths', 'active_cases'), values))
-        print(row)
         return row
 
 def run():
     """The main function which creates the pipeline and runs it."""
     csv_parser = CSVParser()
-    logging.debug(user_options)
-    input_file = f'gs://covid19_stats/daily_stats_{user_options.input_date.get()}.csv'
+    input_file = f'gs://covid19_stats/daily_stats.csv'
 
     p = beam.Pipeline(options=options)
     (p
